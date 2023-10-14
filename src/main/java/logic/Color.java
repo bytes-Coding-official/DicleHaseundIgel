@@ -2,7 +2,7 @@ package logic;
 
 public enum Color {
 
-    GRAY,
+    WHITE,
     YELLOW,
     BLUE,
     RED,

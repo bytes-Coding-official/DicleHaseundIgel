@@ -1,8 +1,9 @@
 package logic.fields;
 
 public class CarrotField extends Field {
-    protected CarrotField(int ID) {
-        super(ID);
+
+    public CarrotField(int ID, int x, int y) {
+        super(ID, x, y);
     }
 
     @Override

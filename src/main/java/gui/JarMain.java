@@ -12,11 +12,4 @@ public class JarMain {
         ApplicationMain.main(args);
     }
 
-
-
-    /*
-     *
-     *
-     *
-     * */
 }

@@ -7,10 +7,8 @@ public class Player {
 
     private int saladCards;
 
-    public Player(String name, int carrotCards, int saladCards) {
+    public Player(String name) {
         this.name = name;
-        this.carrotCards = carrotCards;
-        this.saladCards = saladCards;
     }
 
     public String getName() {

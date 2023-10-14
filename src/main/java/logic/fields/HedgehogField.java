@@ -4,8 +4,9 @@ import logic.Player;
 
 public class HedgehogField extends Field {
 
-    protected HedgehogField(int ID) {
-        super(ID);
+
+    public HedgehogField(int ID, int x, int y) {
+        super(ID, x, y);
     }
 
     @Override

@@ -16,8 +16,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import logic.Color;
+import logic.Figure;
+import logic.Game;
+import logic.Player;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -42,6 +47,78 @@ public class UserInterfaceController implements Initializable {
     private ColorAdjust colorAdjust;
 
     private boolean isColorful = false;
+    static final ArrayList<Player> players = new ArrayList<>();
+    static final ArrayList<Figure> figures = new ArrayList<>();
+
+    private void startButtonEvent() {
+        Timeline timeline = new Timeline();
+
+        // Determine the target saturation based on the current state
+        double targetSaturation = isColorful ? -1.0 : 0.0;
+
+        // Define keyframes for the animation
+        KeyFrame keyFrame = new KeyFrame(Duration.seconds(3),
+                new KeyValue(colorAdjust.saturationProperty(), targetSaturation)
+        );
+
+        timeline.getKeyFrames().add(keyFrame);
+        timeline.setCycleCount(1); // Run the animation once
+
+        // Play the animation
+        timeline.play();
+
+        // Toggle the colorful state
+        isColorful = !isColorful;
+
+
+        int x = 344;
+        int y = 344;
+        int countOfPlayers = countPlayer.getValue();
+        for (int i = 0; i < countOfPlayers; i++) {
+            ImageView gameToken = new ImageView("Stein blau.png");
+            gameToken.toFront();
+            gameToken.setX(x += 20);
+            gameToken.setY(y += 20);
+            gameToken.setFitHeight(50);
+            gameToken.setFitWidth(50);
+            gameToken.idProperty().setValue("gamer" + i);
+            gameToken.fitWidthProperty().bind(spielfeld.fitWidthProperty().divide(1000).multiply(60));
+            window.getChildren().add(gameToken);
+        }
+        players.clear();
+        players.add(new Player(((TextField) nameFields.getChildren().get(0)).getText()));
+        players.add(new Player(((TextField) nameFields.getChildren().get(1)).getText()));
+
+        if (countOfPlayers >= 3)
+            players.add(new Player(((TextField) nameFields.getChildren().get(2)).getText()));
+        if (countOfPlayers >= 4)
+            players.add(new Player(((TextField) nameFields.getChildren().get(3)).getText()));
+        if (countOfPlayers >= 5)
+            players.add(new Player(((TextField) nameFields.getChildren().get(4)).getText()));
+        if (countOfPlayers >= 6)
+            players.add(new Player(((TextField) nameFields.getChildren().get(5)).getText()));
+
+        Game.getInstance().getPlayers().addAll(players);
+        addFigures();
+        Game.getInstance().distributeCards();
+
+
+    }
+
+    private void addFigures() {
+
+        new Figure(Game.getInstance().getFields().stream().filter(field -> field.getID() == 0).findFirst().get(), Color.BLUE, players.get(0));
+        new Figure(Game.getInstance().getFields().stream().filter(field -> field.getID() == 0).findFirst().get(), Color.YELLOW, players.get(1));
+        if (players.size() == 3)
+            new Figure(Game.getInstance().getFields().stream().filter(field -> field.getID() == 0).findFirst().get(), Color.GREEN, players.get(2));
+        if (players.size() == 4)
+            new Figure(Game.getInstance().getFields().stream().filter(field -> field.getID() == 0).findFirst().get(), Color.ORANGE, players.get(3));
+        if (players.size() == 5)
+            new Figure(Game.getInstance().getFields().stream().filter(field -> field.getID() == 0).findFirst().get(), Color.RED, players.get(4));
+        if (players.size() == 6)
+            new Figure(Game.getInstance().getFields().stream().filter(field -> field.getID() == 0).findFirst().get(), Color.WHITE, players.get(5));
+        Game.getInstance().setCurrentPlayer(players.get(0));
+    }
 
     /**
      * This is where you need to add code that should happen during
@@ -64,40 +141,7 @@ public class UserInterfaceController implements Initializable {
         // Füge den Mausklick-Handler zum Farbwechsel hinzu
         startButton.setOnMouseClicked(event -> {
             // Create a timeline for the color adjustment animation
-            Timeline timeline = new Timeline();
-
-            // Determine the target saturation based on the current state
-            double targetSaturation = isColorful ? -1.0 : 0.0;
-
-            // Define keyframes for the animation
-            KeyFrame keyFrame = new KeyFrame(Duration.seconds(3),
-                    new KeyValue(colorAdjust.saturationProperty(), targetSaturation)
-            );
-
-            timeline.getKeyFrames().add(keyFrame);
-            timeline.setCycleCount(1); // Run the animation once
-
-            // Play the animation
-            timeline.play();
-
-            // Toggle the colorful state
-            isColorful = !isColorful;
-
-
-            int x = 344;
-            int y = 344;
-            int countOfPlayers = countPlayer.getValue();
-            for (int i = 0; i < countOfPlayers; i++) {
-                ImageView gameToken = new ImageView("Stein blau.png");
-                gameToken.toFront();
-                gameToken.setX(x += 20);
-                gameToken.setY(y += 20);
-                gameToken.setFitHeight(50);
-                gameToken.setFitWidth(50);
-                gameToken.idProperty().setValue("gamer" + i);
-                gameToken.fitWidthProperty().bind(spielfeld.fitWidthProperty().divide(1000).multiply(60));
-                window.getChildren().add(gameToken);
-            }
+            startButtonEvent();
         });
 
         SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(2, 6);

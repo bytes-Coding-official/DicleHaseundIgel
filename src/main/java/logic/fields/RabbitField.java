@@ -4,8 +4,8 @@ public class RabbitField extends Field {
 
     private boolean startField = false;
 
-    protected RabbitField(int ID) {
-        super(ID);
+    public RabbitField(int ID, int x, int y) {
+        super(ID, x, y);
     }
 
     @Override

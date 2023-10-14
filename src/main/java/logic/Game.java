@@ -2,6 +2,7 @@ package logic;
 
 import logic.cards.HasenCards;
 import logic.fields.Field;
+import logic.fields.RabbitField;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,10 +27,34 @@ public class Game {
         return instance;
     }
 
+    public static void setInstance(Game instance) {
+        Game.instance = instance;
+    }
+
     private void generateFields() {
+        fields.add(new RabbitField(1, 435, 434));
     }
 
     private void distributeCarrotCards() {
+        if (players.size() >= 5) {
+            players.forEach(player -> player.setCarrotCards(98));
+        } else {
+            players.forEach(player -> player.setCarrotCards(68));
+        }
+    }
+
+    public void startGame() {
+        //TODO: Implement
+    }
+
+
+    private void distributeSaladCards() {
+        players.forEach(player -> player.setSaladCards(3));
+    }
+
+    public void distributeCards() {
+        distributeSaladCards();
+        distributeCarrotCards();
     }
 
     public Set<Player> getPlayers() {
