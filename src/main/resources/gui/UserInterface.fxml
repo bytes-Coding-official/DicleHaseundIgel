@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="borderPane" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="gui.UserInterfaceController">
+    <center>
+        <Pane fx:id="window" focusTraversable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+            <effect>
+                <ColorAdjust fx:id="colorAdjust" saturation="-1.0"/>
+            </effect>
+            <children>
+                <ImageView fx:id="spielfeld" disable="true" nodeOrientation="INHERIT" pickOnBounds="true">
+                    <image>
+                        <Image url="@../HaseUndIgelSpielplan.png"/>
+                    </image>
+                    <cursor>
+                        <Cursor fx:constant="DEFAULT"/>
+                    </cursor>
+                </ImageView>
+            </children>
+        </Pane>
+    </center>
+    <top>
+        <MenuBar BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="Menu">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Neues Spiel starten"/>
+                        <MenuItem mnemonicParsing="false" text="Spiel laden"/>
+                        <MenuItem mnemonicParsing="false" text="Speichern"/>
+                        <MenuItem mnemonicParsing="false" text="Spiel Beenden"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+    <right>
+        <Pane fx:id="controlPanel" prefHeight="750.0" prefWidth="175.0" BorderPane.alignment="CENTER">
+            <children>
+                <VBox fx:id="playersSpinner" layoutX="13.0" layoutY="114.0" spacing="5.0">
+                    <children>
+                        <Label text="Players"/>
+                        <Spinner fx:id="countPlayer" onMouseClicked="#onSpinnerClick"/>
+                    </children>
+                </VBox>
+                <VBox fx:id="nameFields" alignment="CENTER" layoutX="13.0" layoutY="247.0" maxHeight="-Infinity" maxWidth="-Infinity" spacing="5.0">
+                    <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="Names" textFill="#2222a3"/>
+                        <TextField fx:id="nameField1" alignment="CENTER" promptText="Player 1"/>
+                        <TextField fx:id="nameField2" alignment="CENTER" prefHeight="15.0" prefWidth="98.0" promptText="Player 2"/>
+                        <TextField fx:id="nameField3" alignment="CENTER" prefHeight="15.0" prefWidth="98.0" promptText="Player 3 "/>
+                        <TextField fx:id="nameField4" alignment="CENTER" prefHeight="15.0" prefWidth="98.0" promptText="Player 4"/>
+                    </children>
+                    <cursor>
+                        <Cursor fx:constant="DEFAULT"/>
+                    </cursor>
+                </VBox>
+                <VBox fx:id="controlField" alignment="CENTER" layoutX="26.0" layoutY="440.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                    <children>
+                        <Button fx:id="startButton" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="START"/>
+                        <Button alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="NEU"/>
+                        <Button alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="LADEN"/>
+                        <Button alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="SPEICHERN"/>
+                    </children>
+                </VBox>
+                <Button fx:id="closeGame" layoutX="42.0" layoutY="677.0" mnemonicParsing="false" onMouseClicked="#createCloseGameWindow" text="BEENDEN"/>
+            </children>
+        </Pane>
+    </right>
+</BorderPane>
