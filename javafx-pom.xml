@@ -15,7 +15,6 @@
         <java.version>17</java.version>
         <javafx.version>17.0.2</javafx.version>
         <gson.version>2.10.1</gson.version>
-        <junit.version>4.13.2</junit.version>
     </properties>
 
     <dependencyManagement>
@@ -83,9 +82,9 @@
 
             <!-- Tests / JUnit -->
             <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${junit.version}</version>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>5.9.1</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
@@ -130,7 +129,7 @@
                 <dependencies>
                     <dependency>
                         <groupId>org.apache.maven.surefire</groupId>
-                        <artifactId>surefire-junit4</artifactId>
+                        <artifactId>surefire-junit5</artifactId>
                         <version>2.22.0</version>
                     </dependency>
                 </dependencies>
