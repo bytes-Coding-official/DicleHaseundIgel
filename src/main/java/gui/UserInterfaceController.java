@@ -82,7 +82,9 @@ public class UserInterfaceController implements Initializable {
             gameToken.setFitHeight(50);
             gameToken.setFitWidth(50);
             gameToken.idProperty().setValue("gamer" + i);
-            gameToken.fitWidthProperty().bind(spielfeld.fitWidthProperty().divide(1000).multiply(60));
+            gameToken.fitWidthProperty().bind(spielfeld.fitWidthProperty().divide(15));  // Beispiel-Teilungsfaktor
+            gameToken.fitHeightProperty().bind(spielfeld.fitHeightProperty().divide(15));  // Beispiel-Teilungsfaktor
+
             window.getChildren().add(gameToken);
         }
         players.clear();
